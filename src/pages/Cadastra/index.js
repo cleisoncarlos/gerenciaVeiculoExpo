@@ -2,21 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+import {useNavigation} from '@react-navigation/native'
+
 export default function Cadastra() {
+
+  const navigation = useNavigation()
+
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btLink} onPress={() => {}}>
-        <View>
-          <MaterialCommunityIcons name="gas-station" color="#fff" size={22} />
-        </View>
-
-        <View>
-          <Text style={styles.btText}>Despesa com combustível </Text>
-        </View>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity style={styles.btLink} onPress={() => {}}>
+      <TouchableOpacity style={styles.btLink} onPress={()=> navigation.navigate('CadastraCombustivel')}>
         <View>
           <MaterialCommunityIcons name="gas-station" color="#fff" size={22} />
         </View>
@@ -59,9 +54,6 @@ export default function Cadastra() {
         </View>
       </TouchableOpacity>
 
-
-
-
     </View>
   );
 }
@@ -75,7 +67,7 @@ const styles = StyleSheet.create({
   btLink: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#555",
+    backgroundColor: "#284893",
     marginBottom: 10,
     borderRadius: 5,
     padding: 10,

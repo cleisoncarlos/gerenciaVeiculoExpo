@@ -13,7 +13,14 @@ const Stack = createNativeStackNavigator()
 
 export default function StackRouter(){
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+        screenOptions={{
+           // headerMode: 'screen',
+            headerTintColor: 'white',
+            headerStyle: { backgroundColor: 'tomato' },
+            title:  'Cadastrar gasto'        
+          }}
+          >
             <Stack.Screen name="Cadastra" component={Cadastra} />
               <Stack.Screen name="CadastraCombustivel" component={CadastraCombustivel} />
             <Stack.Screen name="Home" component={Home} />

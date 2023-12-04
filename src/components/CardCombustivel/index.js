@@ -50,7 +50,7 @@ useEffect(() => {
 <MaterialCommunityIcons name="car-estate" color='rgba(0, 0, 0, 0.1)' size={140}  style={styles.iconBg} />
 
         <View>
-        <Text style={styles.text}><MaterialCommunityIcons name="gas-station" color='#ADBFE9' size={18} /> {tipoCombustivel} </Text>
+        <Text style={styles.text}><MaterialCommunityIcons name="gas-station" color='#ADBFE9' size={18} /> {tipoCombustivel} | {data.idCombustivel} </Text>
         {/* <Text style={styles.text}>{data.idCombustivel} </Text> */}
         <Text style={styles.text}><MaterialCommunityIcons name="car-speed-limiter" color='#ADBFE9' size={18} />  {data.odometroCombustivel} Km </Text>
         <Text style={styles.text}><MaterialCommunityIcons name="map-marker" color='#ADBFE9' size={18} /> {data.localCombustivel} </Text>

@@ -104,7 +104,8 @@ export default function Routes() {
               <MaterialCommunityIcons name="plus" color="#284893" size={50} />
             </View>
           ),
-          tabBarLabel: "",
+          tabBarLabel: '',
+          headerShown: false
         }}
       />
     </Tab.Navigator>
