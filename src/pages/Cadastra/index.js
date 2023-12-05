@@ -22,13 +22,13 @@ export default function Cadastra() {
       </TouchableOpacity>
 
 
-      <TouchableOpacity style={styles.btLink} onPress={() => {}}>
+      <TouchableOpacity style={styles.btLink} onPress={()=> navigation.navigate('CadastraServico')}>
         <View>
           <MaterialCommunityIcons name="oil" color="#fff" size={22} />
         </View>
 
         <View>
-          <Text style={styles.btText}>Serviços </Text>
+          <Text style={styles.btText} >Serviços </Text>
         </View>
       </TouchableOpacity>
 
