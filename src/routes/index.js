@@ -24,7 +24,7 @@ export default function Routes() {
         tabBarStyle: {
           //   position: 'absolute',
           backgroundColor: "#284893",
-          borderTopWidth: 0,
+          borderTopWidth: 0,          
         },
       }}
     >
@@ -48,7 +48,9 @@ export default function Routes() {
       <Tab.Screen
         name="Historico"
         component={Historico}
+  
         options={{
+      
           tabBarIcon: ({ color, size }) => {
             return (
               <MaterialCommunityIcons

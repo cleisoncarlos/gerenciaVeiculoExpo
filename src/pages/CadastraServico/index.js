@@ -7,21 +7,26 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { MaskedTextInput} from "react-native-mask-text";
+
 import { Picker } from "@react-native-picker/picker";
 
 import api from "../../services/api";
 
 export default function CadastraServico() {
   const [nomeServico, setNomeServico] = useState("nome do servico");
-  const [dataServico, setDataServico] = useState("01/01/2000");
+  const [dataServico, setDataServico] = useState('01/01/2000');
   const [odometroServico, setOdometroServico] = useState("1000");
   const [localServico, setLocalServico] = useState("Posto ABC");
-  const [valorServico, setValorServico] = useState("300");
+  const [valorServico, setValorServico] = useState();
   const [observacaoServico, setObservacaoServico] = useState(
     "teste de observação"
   );
   const [idTipoServico, setIdTipoServico] = useState(1);
   const [idTipoPagamento, setIdTipoPagamento] = useState(1);
+
+
+  
 
   const handleSubmit = async () => {
     // Aqui você pode enviar os dados para a sua API
@@ -30,13 +35,13 @@ export default function CadastraServico() {
       dataServico,
       odometroServico: parseInt(odometroServico),
       localServico,
-      valorServico: parseFloat(valorServico),
+      valorServico,
       observacaoServico,
       idTipoServico: parseInt(idTipoServico),
       idTipoPagamento: parseInt(idTipoPagamento),
     };
 
-    console.log(formData);
+    //console.log(formData);
 
     // Aqui você pode fazer a requisição para a API
 
@@ -63,6 +68,7 @@ export default function CadastraServico() {
       });
   };
 
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.label}>Nome do Serviço:</Text>
@@ -86,12 +92,17 @@ export default function CadastraServico() {
       </Picker>
 
       <Text style={styles.label}>Data do Serviço:</Text>
-      <TextInput
+      <MaskedTextInput
+    type="date"
+    options={{
+      dateFormat: 'DD/MM/YYYY',
+    }}
         style={styles.input}
         placeholder="00/00/000"
         value={dataServico}
         onChangeText={(text) => setDataServico(text)}
-        // keyboardType=''
+         keyboardType='numeric'
+        
       />
 
       <Text style={styles.label}>Odômetro no dia do Serviço:</Text>
@@ -110,12 +121,20 @@ export default function CadastraServico() {
       />
 
       <Text style={styles.label}>Valor do Serviço:</Text>
-      <TextInput
+      <MaskedTextInput
+       type="currency"
+       options={{
+         prefix: 'R$ ',
+         decimalSeparator: ',',
+         groupSeparator: '.',
+         precision: 2
+       }}
         style={styles.input}
         value={valorServico}
-        onChangeText={(text) => setValorServico(text)}
-        keyboardType="numeric"
-        placeholder="Digite o valor"
+        onChangeText={(text, rawText) => setValorServico(rawText)}
+    keyboardType='numeric'
+   
+      //  placeholder="0000"
       />
 
       <Text style={styles.label}>Método de Pagamento do Serviço:</Text>
@@ -133,13 +152,13 @@ export default function CadastraServico() {
 
       <Text style={styles.label}>Observação:</Text>
       <TextInput
+        multiline
+        numberOfLines={4} // Número inicial de linhas visíveis
         style={styles.input}
         value={observacaoServico}
+
         onChangeText={(text) => setObservacaoServico(text)}
-        editable
-        multiline
-        numberOfLines={4}
-        maxLength={40}
+ 
       />
 
       <Button

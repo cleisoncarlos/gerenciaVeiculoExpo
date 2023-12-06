@@ -17,7 +17,7 @@ export default function Cadastra() {
         </View>
 
         <View>
-          <Text style={styles.btText}>Despesa com combustível </Text>
+          <Text style={styles.btText}>Combustível </Text>
         </View>
       </TouchableOpacity>
 
@@ -33,24 +33,26 @@ export default function Cadastra() {
       </TouchableOpacity>
 
 
-      <TouchableOpacity style={styles.btLink} onPress={() => {}}>
-        <View>
-          <MaterialCommunityIcons name="credit-card-outline" color="#fff" size={22} />
-        </View>
-
-        <View>
-          <Text style={styles.btText}>Despesa Geral </Text>
-        </View>
-      </TouchableOpacity>
 
 
-      <TouchableOpacity style={styles.btLink} onPress={() => {}}>
+      <TouchableOpacity style={styles.btLink} onPress={()=> navigation.navigate('CadastraLembrete')}>
         <View>
           <MaterialCommunityIcons name="alarm-multiple" color="#fff" size={22} />
         </View>
 
         <View>
           <Text style={styles.btText}>Lembrete </Text>
+        </View>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.btLink} onPress={() => {}}>
+        <View>
+          <MaterialCommunityIcons name="credit-card-outline" color="#fff" size={22} />
+        </View>
+
+        <View>
+          <Text style={styles.btText}>Outras Despesas </Text>
         </View>
       </TouchableOpacity>
 
