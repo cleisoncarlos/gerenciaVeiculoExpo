@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { ScrollView, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 import api from "../../services/api";
@@ -8,10 +15,9 @@ export default function CadastraCombustivel() {
   const [dataCombustivel, setDataCombustivel] = useState("01/01/2000");
   const [odometroCombustivel, setOdometroCombustivel] = useState("1000");
   const [localCombustivel, setLocalCombustivel] = useState("Posto ABC");
-  const [precoLitroCombustivel, setPrecoLitroCombustivel] = useState('');
-  const [valorCombustivelCombustivel, setValorCombustivelCombustivel] = useState('');
-  const [idTipoCombustivel, setIdTipoCombustivel] = useState(1);
-
+  const [precoLitroCombustivel, setPrecoLitroCombustivel] = useState("");
+  const [valorCombustivelCombustivel, setValorCombustivelCombustivel] = useState("100");
+  const [idTipoCombustivel, setIdTipoCombustivel] = useState();
 
   const handleSubmit = async () => {
     // Aqui você pode enviar os dados para a sua API
@@ -24,7 +30,7 @@ export default function CadastraCombustivel() {
       idTipoCombustivel: parseInt(idTipoCombustivel),
     };
 
-    console.log(formData);
+    // console.log(formData);
 
     // Aqui você pode fazer a requisição para a API
 
@@ -46,36 +52,46 @@ export default function CadastraCombustivel() {
       });
   };
 
+  const [tiposCombustiveis, setTiposCombustiveis] = useState([]);
 
+  useEffect(() => {
+    // Função assíncrona para buscar os dados da API
+    const fetchData = async () => {
+      const response = await api.get("tipocombustivel");
+      try {
+        let todosTiposCombustiveis = response.data;
+        setTiposCombustiveis(todosTiposCombustiveis);
+      } catch (error) {
+        console.error(error);
+        //  console.log(response.data.tiposcombustivei.nomeTipoCombustivel)
+      }
+    };
 
-
-
-
-
-
-
-
+    // Chama a função fetchData ao montar o componente
+    fetchData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
-
-
-
-
       <Text style={styles.label}>Tipo de Combustível:</Text>
-      <Picker
-        style={styles.input}
-        selectedValue={idTipoCombustivel}
-        onValueChange={(itemValue, itemIndex) =>
-          setIdTipoCombustivel(itemValue)
-        }
-      >
-        <Picker.Item label="Gasolina" value="1" />
-        <Picker.Item label="Álcool" value="2" />
-        <Picker.Item label="Diesel" value="3" />
-        <Picker.Item label="Gás" value="4" />
-        {/* Adicione mais Picker.Items conforme necessário */}
+
+      <Picker style={styles.input}
+             selectedValue={idTipoCombustivel}
+             onValueChange={(itemValue, itemIndex) =>
+               setIdTipoCombustivel(itemValue)
+             }
+          
+          >
+      <Picker.Item label="Selecione o tipo ..." value="0" />
+        {tiposCombustiveis.map((tipo, index) => (
+          <Picker.Item
+            key={index}
+            label={tipo.nomeTipoCombustivel}
+            value={tipo.idTipoCombustivel}
+          />
+        ))}
       </Picker>
+
 
       <Text style={styles.label}>Data do Combustível:</Text>
       <TextInput
@@ -106,7 +122,6 @@ export default function CadastraCombustivel() {
         style={styles.input}
         value={precoLitroCombustivel}
         onChangeText={(text) => setPrecoLitroCombustivel(text)}
-  
         keyboardType="numeric"
         placeholder="Digite o valor"
       />
@@ -116,18 +131,17 @@ export default function CadastraCombustivel() {
         style={styles.input}
         value={valorCombustivelCombustivel}
         onChangeText={(text) => setValorCombustivelCombustivel(text)}
-    
         keyboardType="numeric"
         placeholder="Digite o valor"
       />
 
-      <Button color={'#284893'} title="CADASTRAR GASTO" onPress={handleSubmit} />
+      <Button
+        color={"#284893"}
+        title="CADASTRAR GASTO"
+        onPress={handleSubmit}
+      />
 
-
-
-<Text>sdasdsadsadas</Text>
-
-
+      <Text>sdasdsadsadas</Text>
     </ScrollView>
   );
 }
@@ -136,7 +150,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    
   },
   input: {
     height: 40,

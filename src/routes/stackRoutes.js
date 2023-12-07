@@ -7,11 +7,7 @@ import CadastraCombustivel from "../pages/CadastraCombustivel";
 import CadastraServico from "../pages/CadastraServico";
 import CadastraLembrete from "../pages/CadastraLembrete";
 
-
-
 const Stack = createNativeStackNavigator()
-
-
 
 export default function StackRouter(){
     return (

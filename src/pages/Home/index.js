@@ -5,11 +5,6 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import api from "../../services/api";
 
-
-
-
-
-
 import CardCombustivel from "../../components/CardCombustivel";
 
 export default function Home() {
@@ -41,14 +36,6 @@ export default function Home() {
 
   return (
     <View>
-      {/* <Button title='Clique aqui' onPress={()=> navigation.navigate('Relatorios')}/>
-
-      <Button title='Clique aqui' onPress={()=> navigation.navigate('Lembretes')}/>
-
-      <Button title='Clique aqui' onPress={()=> navigation.navigate('Historico')}/>
-
-      <Button title='Clique aqui' onPress={()=> navigation.navigate('Relatorios')}/>
- */}
 
       <View style={styles.cardContainer}>
         {/* <Text style={styles.text}><MaterialCommunityIcons name="account-box-outline" color='#ADBFE9' size={18} /> Cleison Carlos</Text> */}
