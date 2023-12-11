@@ -7,12 +7,13 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { MaskedTextInput } from "react-native-mask-text";
 import { Picker } from "@react-native-picker/picker";
 
 import api from "../../services/api";
 
 export default function CadastraCombustivel() {
-  const [dataCombustivel, setDataCombustivel] = useState("01/01/2000");
+  const [dataCombustivel, setDataCombustivel] = useState();
   const [odometroCombustivel, setOdometroCombustivel] = useState("1000");
   const [localCombustivel, setLocalCombustivel] = useState("Posto ABC");
   const [precoLitroCombustivel, setPrecoLitroCombustivel] = useState("");
@@ -94,9 +95,14 @@ export default function CadastraCombustivel() {
 
 
       <Text style={styles.label}>Data do Combustível:</Text>
-      <TextInput
+      <MaskedTextInput
+    type="date"
+    mask="99/99/9999"
+    options={{
+      dateFormat: 'DD/MM/YYYY',
+    }}
         style={styles.input}
-        placeholder="00/00/000"
+      
         value={dataCombustivel}
         onChangeText={(text) => setDataCombustivel(text)}
         // keyboardType=''

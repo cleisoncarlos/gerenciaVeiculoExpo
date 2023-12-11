@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../pages/Home";
 import Relatorios from "../pages/Relatorios";
 import Lembretes from "../pages/Lembretes";
+import Servicos from "../pages/Servicos";
 import Historico from "../pages/Historico";
 
 import StackRoutes from "../routes/stackRoutes";
@@ -35,7 +36,7 @@ export default function Routes() {
           tabBarIcon: ({ color, size }) => {
             return (
               <MaterialCommunityIcons
-                name="home-outline"
+                name="gas-station"
                 color={color}
                 size={size}
               />
@@ -46,15 +47,15 @@ export default function Routes() {
       />
 
       <Tab.Screen
-        name="Historico"
-        component={Historico}
+        name="Servicos"
+        component={Servicos}
   
         options={{
       
           tabBarIcon: ({ color, size }) => {
             return (
               <MaterialCommunityIcons
-                name="history"
+                name="car-cog"
                 color={color}
                 size={size}
               />
@@ -63,6 +64,9 @@ export default function Routes() {
           tabBarLabel: "",
         }}
       />
+
+
+
       <Tab.Screen
         name="Relatorios"
         component={Relatorios}

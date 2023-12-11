@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   Text,
@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import { MaskedTextInput} from "react-native-mask-text";
+import {MaskedTextInput} from "react-native-mask-text";
 
 import { Picker } from "@react-native-picker/picker";
 
@@ -15,7 +15,7 @@ import api from "../../services/api";
 
 export default function CadastraServico() {
   const [nomeServico, setNomeServico] = useState("nome do servico");
-  const [dataServico, setDataServico] = useState('01/01/2000');
+  const [dataServico, setDataServico] = useState();
   const [odometroServico, setOdometroServico] = useState("1000");
   const [localServico, setLocalServico] = useState("Posto ABC");
   const [valorServico, setValorServico] = useState();
@@ -69,6 +69,46 @@ export default function CadastraServico() {
   };
 
 
+
+  const [tiposServicos, setTiposServicos] = useState([]);
+
+  useEffect(() => {
+    // Função assíncrona para buscar os dados da API
+    const fetchData = async () => {
+      const response = await api.get("tiposervico");
+      try {
+        let todosTiposServicos = response.data;
+        setTiposServicos(todosTiposServicos);
+      } catch (error) {
+        console.error(error);
+        //  console.log(response.data.tiposcombustivei.nomeTipoCombustivel)
+      }
+    };
+    // Chama a função fetchData ao montar o componente
+    fetchData();
+  }, []);
+
+
+  const [tiposPagamentos, setTiposPagamentos] = useState([]);
+
+  useEffect(() => {
+    // Função assíncrona para buscar os dados da API
+    const fetchData = async () => {
+      const response = await api.get("tipopagamento");
+      try {
+        let todosTiposPagamentos = response.data;
+        setTiposPagamentos(todosTiposPagamentos);
+      } catch (error) {
+        console.error(error);
+        //  console.log(response.data.tiposcombustivei.nomeTipoCombustivel)
+      }
+    };
+    // Chama a função fetchData ao montar o componente
+    fetchData();
+  }, []);
+
+
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.label}>Nome do Serviço:</Text>
@@ -79,26 +119,34 @@ export default function CadastraServico() {
       />
 
       <Text style={styles.label}>Tipo de Serviço:</Text>
-      <Picker
-        style={styles.input}
-        selectedValue={idTipoServico}
-        onValueChange={(itemValue, itemIndex) => setIdTipoServico(itemValue)}
-      >
-        <Picker.Item label="Serviço 1" value="1" />
-        <Picker.Item label="Serviço 2" value="2" />
-        <Picker.Item label="Serviço 3" value="3" />
-        <Picker.Item label="Serviço 4" value="4" />
-        {/* Adicione mais Picker.Items conforme necessário */}
+
+      <Picker style={styles.input}
+             selectedValue={idTipoServico}
+             onValueChange={(itemValue, itemIndex) =>
+               setIdTipoServico(itemValue)
+             }
+          
+          >
+      <Picker.Item label="Selecione o tipo ..." value="0" />
+        {tiposServicos.map((tipo, index) => (
+          <Picker.Item
+            key={index}
+            label={tipo.nomeTipoServico}
+            value={tipo.idTipoServico}
+          />
+        ))}
       </Picker>
+
 
       <Text style={styles.label}>Data do Serviço:</Text>
       <MaskedTextInput
     type="date"
+    mask="99/99/9999"
     options={{
       dateFormat: 'DD/MM/YYYY',
     }}
         style={styles.input}
-        placeholder="00/00/000"
+  
         value={dataServico}
         onChangeText={(text) => setDataServico(text)}
          keyboardType='numeric'
@@ -138,16 +186,23 @@ export default function CadastraServico() {
       />
 
       <Text style={styles.label}>Método de Pagamento do Serviço:</Text>
-      <Picker
-        style={styles.input}
-        selectedValue={idTipoPagamento}
-        onValueChange={(itemValue, itemIndex) => setIdTipoPagamento(itemValue)}
-      >
-        <Picker.Item label="Pagamento 1" value="1" />
-        <Picker.Item label="Pagamento 2" value="2" />
-        <Picker.Item label="Pagamento 3" value="3" />
-        <Picker.Item label="Pagamento 4" value="4" />
-        {/* Adicione mais Picker.Items conforme necessário */}
+
+
+      <Picker style={styles.input}
+             selectedValue={idTipoPagamento}
+             onValueChange={(itemValue, itemIndex) =>
+               setIdTipoPagamento(itemValue)
+             }
+          
+          >
+      <Picker.Item label="Selecione o tipo ..." value="0" />
+        {tiposPagamentos.map((tipo, index) => (
+          <Picker.Item
+            key={index}
+            label={tipo.nomeTipoPagamento}
+            value={tipo.idTipoPagamento}
+          />
+        ))}
       </Picker>
 
       <Text style={styles.label}>Observação:</Text>
