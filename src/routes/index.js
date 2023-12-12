@@ -30,6 +30,22 @@ export default function Routes() {
       }}
     >
       <Tab.Screen
+        name="Relatorios"
+        component={Relatorios}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons
+                name="chart-areaspline"
+                color={color}
+                size={size}
+              />
+            );
+          },
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
         name="Home"
         component={Home}
         options={{
@@ -67,22 +83,6 @@ export default function Routes() {
 
 
 
-      <Tab.Screen
-        name="Relatorios"
-        component={Relatorios}
-        options={{
-          tabBarIcon: ({ color, size }) => {
-            return (
-              <MaterialCommunityIcons
-                name="chart-areaspline"
-                color={color}
-                size={size}
-              />
-            );
-          },
-          tabBarLabel: "",
-        }}
-      />
 
       <Tab.Screen
         name="Lembretes"
